@@ -45,13 +45,14 @@ public class MoneyTransferTest {
 
     @Test
     void shouldTransferMoneyFromFirstToSecondCard() {
-        int amount = 500;
+        int amount = 1000;
         var dashboardPage = new DashboardPage();
         var balanceFirstBefore = dashboardPage.balance1();
         var balanceSecondBefore = dashboardPage.balance2();
         var replenishmentPage = dashboardPage.secondCard();
         var cardInfo = DataHelper.getFirstCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
+
         int balanceCardsFromAfter= DataHelper.balanceFrom(balanceSecondBefore, amount);
         int balanceCardsToAfter = DataHelper.balanceTo(balanceFirstBefore, amount);
         int balanceFirstAfter = dashboardPage.balance1();
@@ -64,6 +65,23 @@ public class MoneyTransferTest {
     @Test
     void shouldTransferMoneyFromSecondToFirstCard() {
         int amount = 1000;
+        var dashboardPage = new DashboardPage();
+        var balanceFirstBefore = dashboardPage.balance1();
+        var balanceSecondBefore = dashboardPage.balance2();
+        var replenishmentPage = dashboardPage.firstCard();
+        var cardInfo = DataHelper.getSecondCardInfo();
+        replenishmentPage.transferMoney(cardInfo, amount);
+        int balanceAfterFrom = DataHelper.balanceFrom(balanceFirstBefore, amount);
+        int balanceAfterTo = DataHelper.balanceTo(balanceSecondBefore, amount);
+        int balanceFirstAfter = dashboardPage.balance1();
+        int balanceSecondAfter = dashboardPage.balance2();
+
+        assertEquals(balanceFirstAfter, balanceAfterTo);
+        assertEquals(balanceSecondAfter, balanceAfterFrom);
+    }
+    @Test
+    void shouldTransferMoreLimitMoneyFromFirstToSecondCard() {
+        int amount = 200000;
         var dashboardPage = new DashboardPage();
         var balanceFirstBefore = dashboardPage.balance1();
         var balanceSecondBefore = dashboardPage.balance2();
@@ -84,7 +102,7 @@ public class MoneyTransferTest {
         var dashboardPage = new DashboardPage();
         var balanceFirstBefore = dashboardPage.balance1();
         var balanceSecondBefore = dashboardPage.balance2();
-        var replenishmentPage = dashboardPage.secondCard();
+        var replenishmentPage = dashboardPage.firstCard();
         var cardInfo = DataHelper.getSecondCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
         int balanceAfterFrom = DataHelper.balanceFrom(balanceFirstBefore, amount);
