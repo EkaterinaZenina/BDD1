@@ -18,7 +18,7 @@ public class MoneyTransferTest {
     @BeforeEach
     public void setUp() {
         open("http://localhost:9999");
-        Configuration.holdBrowserOpen = true;
+
         var loginPage = new LoginPage();
         var authInfo = DataHelper.getAuthInfo();
         var verificationPage = loginPage.validLogin(authInfo);
