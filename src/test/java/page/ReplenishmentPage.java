@@ -8,23 +8,18 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class ReplenishmentPage {
     private SelenideElement form = $(".form");
-
-    public static SelenideElement amountField = $("[data-test-id='amount'] input");
-    public static SelenideElement fromField = $("[data-test-id='from'] input");
-
-    public static SelenideElement transferButton = $("[data-test-id='action-transfer']");
+    private  SelenideElement amountField = $("[data-test-id='amount'] input");
+    private  SelenideElement fromField = $("[data-test-id='from'] input");
+    private SelenideElement transferButton = $("[data-test-id='action-transfer']");
 
     public ReplenishmentPage() {
         form.shouldBe(visible);
     }
 
-    public static void transferMoney(DataHelper.CardInfo fromCardInfo, int amountToTransfer) {
+    public void transferMoney(DataHelper.CardInfo fromCardInfo, int amountToTransfer) {
         String amount = Integer.toString(amountToTransfer);
         amountField.setValue(amount);
         fromField.setValue(fromCardInfo.getCardNumber());
-
         transferButton.click();
     }
-
-
 }
