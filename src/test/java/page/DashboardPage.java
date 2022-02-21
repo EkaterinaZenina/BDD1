@@ -17,7 +17,8 @@ public class DashboardPage {
     private SelenideElement heading = $("[data-test-id=dashboard]");
     private static SelenideElement balance1 = $("[data-test-id='92df3f1c-a033-48e6-8390-206f6b1f56c0']");
     private static SelenideElement balance2 = $("[data-test-id='0f3f5c2a-249e-4c3d-8287-09f7a039391d']");
-
+    private SelenideElement button1 = $("[data-test-id='92df3f1c-a033-48e6-8390-206f6b1f56c0'] button");
+    private SelenideElement button2 = $("[data-test-id='0f3f5c2a-249e-4c3d-8287-09f7a039391d'] button");
 
     public DashboardPage() {
         heading.shouldBe(visible);
@@ -44,8 +45,12 @@ public class DashboardPage {
         return new ReplenishmentPage();
     }
 
-    public ReplenishmentPage secondCard() {
-        balance2.click();
+    public ReplenishmentPage firstButton() {
+        button1.click();
+        return new ReplenishmentPage();
+    }
+    public ReplenishmentPage secondButton() {
+        button2.click();
         return new ReplenishmentPage();
     }
 }

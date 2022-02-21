@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import page.DashboardPage;
 import page.LoginPage;
 
-
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,7 +31,7 @@ public class MoneyTransferTest {
         if (balance1 > balance2) {
             int transferSum = (balance1 - balance2) / 2;
             var cardInfo = DataHelper.getFirstCardInfo();
-            var replenishmentPage = dashboardPage.secondCard();
+            var replenishmentPage = dashboardPage.secondButton();
             replenishmentPage.transferMoney(cardInfo, transferSum);
         }
         if (balance1 < balance2) {
@@ -46,12 +45,14 @@ public class MoneyTransferTest {
     @Test
     void shouldTransferMoneyFromFirstToSecondCard() {
         int amount = 1000;
+
         var dashboardPage = new DashboardPage();
         var balanceFirstBefore = dashboardPage.balance1();
         var balanceSecondBefore = dashboardPage.balance2();
-        var replenishmentPage = dashboardPage.secondCard();
+        var replenishmentPage = dashboardPage.secondButton();
         var cardInfo = DataHelper.getFirstCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
+
 
         int balanceCardsFromAfter= DataHelper.balanceFrom(balanceSecondBefore, amount);
         int balanceCardsToAfter = DataHelper.balanceTo(balanceFirstBefore, amount);
@@ -68,7 +69,7 @@ public class MoneyTransferTest {
         var dashboardPage = new DashboardPage();
         var balanceFirstBefore = dashboardPage.balance1();
         var balanceSecondBefore = dashboardPage.balance2();
-        var replenishmentPage = dashboardPage.firstCard();
+        var replenishmentPage = dashboardPage.firstButton();
         var cardInfo = DataHelper.getSecondCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
         int balanceAfterFrom = DataHelper.balanceFrom(balanceFirstBefore, amount);
@@ -85,7 +86,7 @@ public class MoneyTransferTest {
         var dashboardPage = new DashboardPage();
         var balanceFirstBefore = dashboardPage.balance1();
         var balanceSecondBefore = dashboardPage.balance2();
-        var replenishmentPage = dashboardPage.secondCard();
+        var replenishmentPage = dashboardPage.secondButton();
         var cardInfo = DataHelper.getSecondCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
         int balanceAfterFrom = DataHelper.balanceFrom(balanceFirstBefore, amount);
@@ -102,7 +103,7 @@ public class MoneyTransferTest {
         var dashboardPage = new DashboardPage();
         var balanceFirstBefore = dashboardPage.balance1();
         var balanceSecondBefore = dashboardPage.balance2();
-        var replenishmentPage = dashboardPage.firstCard();
+        var replenishmentPage = dashboardPage.firstButton();
         var cardInfo = DataHelper.getSecondCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
         int balanceAfterFrom = DataHelper.balanceFrom(balanceFirstBefore, amount);
@@ -113,5 +114,5 @@ public class MoneyTransferTest {
         assertEquals(balanceFirstAfter, balanceAfterTo);
         assertEquals(balanceSecondAfter, balanceAfterFrom);
     }
-    
+
 }

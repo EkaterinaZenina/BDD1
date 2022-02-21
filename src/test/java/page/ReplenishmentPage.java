@@ -12,9 +12,7 @@ public class ReplenishmentPage {
     private  SelenideElement fromField = $("[data-test-id='from'] input");
     private SelenideElement transferButton = $("[data-test-id='action-transfer']");
 
-    public ReplenishmentPage() {
-        form.shouldBe(visible);
-    }
+
 
     public void transferMoney(DataHelper.CardInfo fromCardInfo, int amountToTransfer) {
         String amount = Integer.toString(amountToTransfer);
