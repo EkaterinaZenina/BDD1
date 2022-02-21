@@ -80,39 +80,6 @@ public class MoneyTransferTest {
         assertEquals(balanceFirstAfter, balanceAfterTo);
         assertEquals(balanceSecondAfter, balanceAfterFrom);
     }
-    @Test
-    void shouldTransferMoreLimitMoneyFromFirstToSecondCard() {
-        int amount = 200000;
-        var dashboardPage = new DashboardPage();
-        var balanceFirstBefore = dashboardPage.balance1();
-        var balanceSecondBefore = dashboardPage.balance2();
-        var replenishmentPage = dashboardPage.secondButton();
-        var cardInfo = DataHelper.getSecondCardInfo();
-        replenishmentPage.transferMoney(cardInfo, amount);
-        int balanceAfterFrom = DataHelper.balanceFrom(balanceFirstBefore, amount);
-        int balanceAfterTo = DataHelper.balanceTo(balanceSecondBefore, amount);
-        int balanceFirstAfter = dashboardPage.balance1();
-        int balanceSecondAfter = dashboardPage.balance2();
 
-        assertEquals(balanceFirstAfter, balanceAfterTo);
-        assertEquals(balanceSecondAfter, balanceAfterFrom);
-    }
-    @Test
-    void shouldTransferMoreLimitMoneyFromSecondToFirstCard() {
-        int amount = 200000;
-        var dashboardPage = new DashboardPage();
-        var balanceFirstBefore = dashboardPage.balance1();
-        var balanceSecondBefore = dashboardPage.balance2();
-        var replenishmentPage = dashboardPage.firstButton();
-        var cardInfo = DataHelper.getSecondCardInfo();
-        replenishmentPage.transferMoney(cardInfo, amount);
-        int balanceAfterFrom = DataHelper.balanceFrom(balanceFirstBefore, amount);
-        int balanceAfterTo = DataHelper.balanceTo(balanceSecondBefore, amount);
-        int balanceFirstAfter = dashboardPage.balance1();
-        int balanceSecondAfter = dashboardPage.balance2();
-
-        assertEquals(balanceFirstAfter, balanceAfterTo);
-        assertEquals(balanceSecondAfter, balanceAfterFrom);
-    }
 
 }
