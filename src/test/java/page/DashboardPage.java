@@ -3,6 +3,7 @@ package page;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import lombok.val;
+import lombok.var;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.withText;
@@ -25,25 +26,18 @@ public class DashboardPage {
         heading.shouldBe(visible);
     }
 
-    public int balance1() {
-        val text = cards.first().text();
+    public int getCardBalance(int id) {
+        val text = cards.get(id).text();
         return extractBalance(text);
     }
-    public int balance2() {
-        val text = cards.first().text();
-        return extractBalance(text);
-    }
+
+
 
     private int extractBalance(String text) {
-        val start = text.indexOf(balanceStart);
-        val finish = text.indexOf(balanceFinish);
-        val value = text.substring(start + balanceStart.length(), finish);
+        var start = text.indexOf(balanceStart);
+        var finish = text.indexOf(balanceFinish);
+        var value = text.substring(start + balanceStart.length(), finish);
         return Integer.parseInt(value);
-    }
-
-    public ReplenishmentPage firstCard() {
-        balance1.click();
-        return new ReplenishmentPage();
     }
 
     public ReplenishmentPage firstButton() {

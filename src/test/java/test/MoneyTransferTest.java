@@ -25,8 +25,8 @@ public class MoneyTransferTest {
         verificationPage.validVerify(verificationCode);
         var dashboardPage = new DashboardPage();
 
-        var balance1 = dashboardPage.balance1();
-        var balance2 = dashboardPage.balance2();
+        var balance1 = dashboardPage.getCardBalance(0);
+        var balance2 = dashboardPage.getCardBalance(1);
 
         if (balance1 > balance2) {
             int transferSum = (balance1 - balance2) / 2;
@@ -37,63 +37,65 @@ public class MoneyTransferTest {
         if (balance1 < balance2) {
             int transferSum = (balance2 - balance1) / 2;
             var cardInfo = DataHelper.getSecondCardInfo();
-            var replenishmentPage = dashboardPage.firstCard();
+            var replenishmentPage = dashboardPage.firstButton();
             replenishmentPage.transferMoney(cardInfo, transferSum);
         }
     }
-    int amount = 100;
+
     @Test
     void shouldTransferMoneyFromFirstToSecondCard() {
+        int amount = 1000;
         var dashboardPage = new DashboardPage();
-        var balanceFirstBefore = dashboardPage.balance1();
-        var balanceSecondBefore = dashboardPage.balance2();
+        var balanceFirstBefore = dashboardPage.getCardBalance(0);
+        var balanceSecondBefore = dashboardPage.getCardBalance(1);
         var replenishmentPage = dashboardPage.secondButton();
-
         var cardInfo = DataHelper.getFirstCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
 
-        int balanceCardsFromAfter= DataHelper.balanceFrom(balanceFirstBefore, amount);
-        int balanceCardsToAfter = DataHelper.balanceTo(balanceSecondBefore, amount);
-        int balanceFirstAfter = dashboardPage.balance1();
-        int balanceSecondAfter = dashboardPage.balance2();
+        int balanceAfterOnCardFrom = DataHelper.balanceFrom(balanceSecondBefore, amount);
+        int balanceAfterOnCardTo = DataHelper.balanceTo(balanceFirstBefore, amount);
+        int balanceFirstAfter = dashboardPage.getCardBalance(0);
+        int balanceSecondAfter = dashboardPage.getCardBalance(1);
 
-        assertEquals(balanceCardsFromAfter, balanceFirstAfter);
-        assertEquals(balanceCardsToAfter, balanceSecondAfter);
+        assertEquals(balanceFirstAfter, balanceAfterOnCardFrom);
+        assertEquals(balanceSecondAfter, balanceAfterOnCardTo);
     }
 
     @Test
     void shouldTransferMoneyFromSecondToFirstCard() {
+        int amount = 1000;
         var dashboardPage = new DashboardPage();
-        var balanceFirstBefore = dashboardPage.balance1();
-        var balanceSecondBefore = dashboardPage.balance2();
+        var balanceFirstBefore = dashboardPage.getCardBalance(0);
+        var balanceSecondBefore = dashboardPage.getCardBalance(1);
         var replenishmentPage = dashboardPage.firstButton();
         var cardInfo = DataHelper.getSecondCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
-        int balanceAfterFrom = DataHelper.balanceFrom(balanceSecondBefore, amount);
-        int balanceAfterTo = DataHelper.balanceTo(balanceFirstBefore, amount);
-        int balanceFirstAfter = dashboardPage.balance1();
-        int balanceSecondAfter = dashboardPage.balance2();
 
-        assertEquals(balanceFirstAfter, balanceAfterTo);
-        assertEquals(balanceSecondAfter, balanceAfterFrom);
+        int balanceAfterOnCardFrom = DataHelper.balanceFrom(balanceFirstBefore, amount);
+        int balanceAfterOnCardTo = DataHelper.balanceTo(balanceSecondBefore, amount);
+        int balanceFirstAfter = dashboardPage.getCardBalance(0);
+        int balanceSecondAfter = dashboardPage.getCardBalance(1);
+
+        assertEquals(balanceFirstAfter, balanceAfterOnCardTo);
+        assertEquals(balanceSecondAfter, balanceAfterOnCardFrom);
     }
-    //@Test
-     //   void shouldTransferMoreLimitMoneyFromFirstToSecondCard() {
-      //  int amount = 200000;
-      //  var dashboardPage = new DashboardPage();
-      //  var replenishmentPage = dashboardPage.secondButton();
-      //  var cardInfo = DataHelper.getFirstCardInfo();
-      //  replenishmentPage.transferMoney(cardInfo, amount);
-      //  dashboardPage.notificationVisible();;
-   // }
-    //@Test
-   // void shouldTransferMoreLimitMoneyFromSecondToFirstCard() {
-    //    int amount = 200000;
-    //    var dashboardPage = new DashboardPage();
-    //    var replenishmentPage = dashboardPage.firstButton();
-     //   var cardInfo = DataHelper.getSecondCardInfo();
-     //   replenishmentPage.transferMoney(cardInfo, amount);
-     //   dashboardPage.notificationVisible();;
-    //}
+    @Test
+     void shouldTransferMoreLimitMoneyFromFirstToSecondCard() {
+        int amount = 200000;
+        var dashboardPage = new DashboardPage();
+        var replenishmentPage = dashboardPage.secondButton();
+        var cardInfo = DataHelper.getFirstCardInfo();
+        replenishmentPage.transferMoney(cardInfo, amount);
+        dashboardPage.notificationVisible();;
+   }
+    @Test
+   void shouldTransferMoreLimitMoneyFromSecondToFirstCard() {
+    int amount = 200000;
+    var dashboardPage = new DashboardPage();
+    var replenishmentPage = dashboardPage.firstButton();
+     var cardInfo = DataHelper.getSecondCardInfo();
+     replenishmentPage.transferMoney(cardInfo, amount);
+     dashboardPage.notificationVisible();;
+    }
 
 }
