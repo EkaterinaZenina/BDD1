@@ -46,16 +46,16 @@ public class MoneyTransferTest {
     void shouldTransferMoneyFromFirstToSecondCard() {
         int amount = 1000;
         var dashboardPage = new DashboardPage();
-        var balanceFirstBefore = dashboardPage.getCardBalance(0);
-        var balanceSecondBefore = dashboardPage.getCardBalance(1);
+        var balanceFirstBefore = dashboardPage.getCardBalance(1);
+        var balanceSecondBefore = dashboardPage.getCardBalance(2);
         var replenishmentPage = dashboardPage.secondButton();
         var cardInfo = DataHelper.getFirstCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
 
         int balanceAfterOnCardFrom = DataHelper.balanceFrom(balanceSecondBefore, amount);
         int balanceAfterOnCardTo = DataHelper.balanceTo(balanceFirstBefore, amount);
-        int balanceFirstAfter = dashboardPage.getCardBalance(0);
-        int balanceSecondAfter = dashboardPage.getCardBalance(1);
+        int balanceFirstAfter = dashboardPage.getCardBalance(1);
+        int balanceSecondAfter = dashboardPage.getCardBalance(2);
 
         assertEquals(balanceFirstAfter, balanceAfterOnCardFrom);
         assertEquals(balanceSecondAfter, balanceAfterOnCardTo);
@@ -65,19 +65,37 @@ public class MoneyTransferTest {
     void shouldTransferMoneyFromSecondToFirstCard() {
         int amount = 1000;
         var dashboardPage = new DashboardPage();
-        var balanceFirstBefore = dashboardPage.getCardBalance(0);
-        var balanceSecondBefore = dashboardPage.getCardBalance(1);
+        var balanceFirstBefore = dashboardPage.getCardBalance(1);
+        var balanceSecondBefore = dashboardPage.getCardBalance(2);
         var replenishmentPage = dashboardPage.firstButton();
         var cardInfo = DataHelper.getSecondCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
 
         int balanceAfterOnCardFrom = DataHelper.balanceFrom(balanceFirstBefore, amount);
         int balanceAfterOnCardTo = DataHelper.balanceTo(balanceSecondBefore, amount);
-        int balanceFirstAfter = dashboardPage.getCardBalance(0);
-        int balanceSecondAfter = dashboardPage.getCardBalance(1);
+        int balanceFirstAfter = dashboardPage.getCardBalance(1);
+        int balanceSecondAfter = dashboardPage.getCardBalance(2);
 
         assertEquals(balanceFirstAfter, balanceAfterOnCardTo);
         assertEquals(balanceSecondAfter, balanceAfterOnCardFrom);
+    }
+    @Test
+    void shouldTransferMoreLimitMoneyFromFirstToSecondCard() {
+        int amount = 200000;
+        var dashboardPage = new DashboardPage();
+        var replenishmentPage = dashboardPage.secondButton();
+        var cardInfo = DataHelper.getFirstCardInfo();
+        replenishmentPage.transferMoney(cardInfo, amount);
+        dashboardPage.notificationVisible();;
+    }
+    @Test
+    void shouldTransferMoreLimitMoneyFromSecondToFirstCard() {
+        int amount = 200000;
+        var dashboardPage = new DashboardPage();
+        var replenishmentPage = dashboardPage.firstButton();
+        var cardInfo = DataHelper.getSecondCardInfo();
+        replenishmentPage.transferMoney(cardInfo, amount);
+        dashboardPage.notificationVisible();;
     }
 
 
