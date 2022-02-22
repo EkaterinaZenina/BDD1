@@ -1,6 +1,5 @@
 package test;
 
-import com.codeborne.selenide.Configuration;
 import data.DataHelper;
 import lombok.var;
 
@@ -25,8 +24,8 @@ public class MoneyTransferTest {
         verificationPage.validVerify(verificationCode);
         var dashboardPage = new DashboardPage();
 
-        var balance1 = dashboardPage.getCardBalance(0);
-        var balance2 = dashboardPage.getCardBalance(1);
+        var balance1 = dashboardPage.getCardBalance(1);
+        var balance2 = dashboardPage.getCardBalance(2);
 
         if (balance1 > balance2) {
             int transferSum = (balance1 - balance2) / 2;
