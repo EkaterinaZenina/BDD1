@@ -79,23 +79,6 @@ public class MoneyTransferTest {
         assertEquals(balanceFirstAfter, balanceAfterOnCardTo);
         assertEquals(balanceSecondAfter, balanceAfterOnCardFrom);
     }
-    @Test
-     void shouldTransferMoreLimitMoneyFromFirstToSecondCard() {
-        int amount = 200000;
-        var dashboardPage = new DashboardPage();
-        var replenishmentPage = dashboardPage.secondButton();
-        var cardInfo = DataHelper.getFirstCardInfo();
-        replenishmentPage.transferMoney(cardInfo, amount);
-        dashboardPage.notificationVisible();;
-   }
-    @Test
-   void shouldTransferMoreLimitMoneyFromSecondToFirstCard() {
-    int amount = 200000;
-    var dashboardPage = new DashboardPage();
-    var replenishmentPage = dashboardPage.firstButton();
-     var cardInfo = DataHelper.getSecondCardInfo();
-     replenishmentPage.transferMoney(cardInfo, amount);
-     dashboardPage.notificationVisible();;
-    }
+
 
 }
