@@ -61,7 +61,7 @@ public class MoneyTransferTest {
 
     @Test
     void shouldTransferMoneyFromSecondToFirstCard() {
-        int amount = 1000;
+        int amount = 100;
         val dashboardPage = new DashboardPage();
         val balanceFirstBefore = dashboardPage.getCardBalance(0);
         val balanceSecondBefore = dashboardPage.getCardBalance(1);
