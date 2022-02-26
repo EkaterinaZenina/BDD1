@@ -57,8 +57,6 @@ public class MoneyTransferTest {
         int balanceSecondAfter = dashboardPage.getCardBalance(1);
         assertEquals( balanceFirstAfter,balanceAfterFrom);
         assertEquals(balanceSecondAfter, balanceAfterTo );
-
-
     }
 
     @Test
@@ -77,6 +75,7 @@ public class MoneyTransferTest {
         assertEquals(balanceFirstAfter, balanceAfterTo);
         assertEquals(balanceSecondAfter, balanceAfterFrom);
     }
+
 
 
 
