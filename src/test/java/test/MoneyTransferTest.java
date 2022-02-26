@@ -55,9 +55,8 @@ public class MoneyTransferTest {
         int balanceAfterOnCardTo = DataHelper.balanceTo(balanceFirstBefore, amount);
         int balanceFirstAfter = dashboardPage.getCardBalance(0);
         int balanceSecondAfter = dashboardPage.getCardBalance(1);
-        assertEquals(balanceAfterOnCardTo,balanceSecondAfter );
-        assertEquals(balanceFirstAfter, balanceAfterOnCardFrom);
-
+        assertEquals(balanceFirstAfter, balanceAfterOnCardTo);
+        assertEquals(balanceSecondAfter, balanceAfterOnCardFrom);
 
     }
 
@@ -74,7 +73,6 @@ public class MoneyTransferTest {
         int balanceAfterOnCardTo = DataHelper.balanceTo(balanceSecondBefore, amount);
         int balanceFirstAfter = dashboardPage.getCardBalance(0);
         int balanceSecondAfter = dashboardPage.getCardBalance(1);
-
         assertEquals(balanceFirstAfter, balanceAfterOnCardTo);
         assertEquals(balanceSecondAfter, balanceAfterOnCardFrom);
     }
