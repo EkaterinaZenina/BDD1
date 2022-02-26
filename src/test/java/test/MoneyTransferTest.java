@@ -56,8 +56,8 @@ public class MoneyTransferTest {
         int balanceFirstAfter = dashboardPage.getCardBalance(0);
         int balanceSecondAfter = dashboardPage.getCardBalance(1);
 
-        assertEquals(balanceFirstAfter, balanceAfterOnCardFrom);
-        assertEquals(balanceSecondAfter,balanceAfterOnCardTo);
+        assertEquals(balanceAfterOnCardFrom, balanceFirstAfter);
+        assertEquals(balanceAfterOnCardTo,balanceSecondAfter);
     }
 
     @Test
