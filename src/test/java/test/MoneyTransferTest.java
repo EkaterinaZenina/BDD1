@@ -45,29 +45,31 @@ public class MoneyTransferTest {
     @Test
     void shouldTransferMoneyFromFirstToSecondCard() {
         int amount = 500;
-        var dashboardPage = new DashboardPage();
-        var balanceFirstBefore = dashboardPage.getCardBalance(0);
-        var balanceSecondBefore = dashboardPage.getCardBalance(1);
-        var replenishmentPage = dashboardPage.secondButton();
-        var cardInfo = DataHelper.getFirstCardInfo();
+        val dashboardPage = new DashboardPage();
+        val balanceFirstBefore = dashboardPage.getCardBalance(0);
+        val balanceSecondBefore = dashboardPage.getCardBalance(1);
+        val replenishmentPage = dashboardPage.secondButton();
+        val cardInfo = DataHelper.getFirstCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
         int balanceAfterOnCardFrom = DataHelper.balanceFrom(balanceSecondBefore, amount);
         int balanceAfterOnCardTo = DataHelper.balanceTo(balanceFirstBefore, amount);
         int balanceFirstAfter = dashboardPage.getCardBalance(0);
         int balanceSecondAfter = dashboardPage.getCardBalance(1);
-        assertEquals(balanceFirstAfter, balanceAfterOnCardTo);
-        assertEquals(balanceSecondAfter, balanceAfterOnCardFrom);
+        assertEquals(balanceFirstAfter, balanceAfterOnCardFrom);
+        assertEquals(balanceSecondAfter, balanceAfterOnCardTo );
+
+
 
     }
 
     @Test
     void shouldTransferMoneyFromSecondToFirstCard() {
         int amount = 1000;
-        var dashboardPage = new DashboardPage();
-        var balanceFirstBefore = dashboardPage.getCardBalance(0);
-        var balanceSecondBefore = dashboardPage.getCardBalance(1);
-        var replenishmentPage = dashboardPage.firstButton();
-        var cardInfo = DataHelper.getSecondCardInfo();
+        val dashboardPage = new DashboardPage();
+        val balanceFirstBefore = dashboardPage.getCardBalance(0);
+        val balanceSecondBefore = dashboardPage.getCardBalance(1);
+        val replenishmentPage = dashboardPage.firstButton();
+        val cardInfo = DataHelper.getSecondCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
         int balanceAfterOnCardFrom = DataHelper.balanceFrom(balanceFirstBefore, amount);
         int balanceAfterOnCardTo = DataHelper.balanceTo(balanceSecondBefore, amount);
