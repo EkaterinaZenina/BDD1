@@ -44,7 +44,7 @@ public class MoneyTransferTest {
 
     @Test
     void shouldTransferMoneyFromFirstToSecondCard() {
-        int amount = 1000;
+        int amount = 500;
         var dashboardPage = new DashboardPage();
         var balanceFirstBefore = dashboardPage.getCardBalance(0);
         var balanceSecondBefore = dashboardPage.getCardBalance(1);
@@ -55,9 +55,10 @@ public class MoneyTransferTest {
         int balanceAfterOnCardTo = DataHelper.balanceTo(balanceFirstBefore, amount);
         int balanceFirstAfter = dashboardPage.getCardBalance(0);
         int balanceSecondAfter = dashboardPage.getCardBalance(1);
+        assertEquals(balanceSecondAfter, balanceAfterOnCardTo);
+        assertEquals(balanceFirstAfter, balanceAfterOnCardFrom);
 
-        assertEquals(balanceAfterOnCardFrom, balanceFirstAfter);
-        assertEquals(balanceAfterOnCardTo,balanceSecondAfter);
+
     }
 
     @Test
