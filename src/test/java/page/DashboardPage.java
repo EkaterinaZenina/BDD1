@@ -32,9 +32,9 @@ public class DashboardPage {
     }
 
     private int extractBalance(String text) {
-        var start = text.indexOf(balanceStart);
-        var finish = text.indexOf(balanceFinish);
-        var value = text.substring(start + balanceStart.length(), finish);
+        val start = text.indexOf(balanceStart);
+        val finish = text.indexOf(balanceFinish);
+        val value = text.substring(start + balanceStart.length(), finish);
         return Integer.parseInt(value);
     }
 

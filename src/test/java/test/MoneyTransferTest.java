@@ -18,26 +18,26 @@ public class MoneyTransferTest {
     public void setUp() {
         open("http://localhost:9999");
 
-        var loginPage = new LoginPage();
-        var authInfo = DataHelper.getAuthInfo();
-        var verificationPage = loginPage.validLogin(authInfo);
-        var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
+        val loginPage = new LoginPage();
+        val authInfo = DataHelper.getAuthInfo();
+        val verificationPage = loginPage.validLogin(authInfo);
+        val verificationCode = DataHelper.getVerificationCodeFor(authInfo);
         verificationPage.validVerify(verificationCode);
-        var dashboardPage = new DashboardPage();
+        val dashboardPage = new DashboardPage();
 
-        var balance1 = dashboardPage.getCardBalance(0);
-        var balance2 = dashboardPage.getCardBalance(1);
+        val balance1 = dashboardPage.getCardBalance(0);
+        val balance2 = dashboardPage.getCardBalance(1);
 
         if (balance1 > balance2) {
             int transferSum = (balance1 - balance2) / 2;
-            var cardInfo = DataHelper.getFirstCardInfo();
-            var replenishmentPage = dashboardPage.secondButton();
+            val cardInfo = DataHelper.getFirstCardInfo();
+            val replenishmentPage = dashboardPage.secondButton();
             replenishmentPage.transferMoney(cardInfo, transferSum);
         }
         if (balance1 < balance2) {
             int transferSum = (balance2 - balance1) / 2;
-            var cardInfo = DataHelper.getSecondCardInfo();
-            var replenishmentPage = dashboardPage.firstButton();
+            val cardInfo = DataHelper.getSecondCardInfo();
+            val replenishmentPage = dashboardPage.firstButton();
             replenishmentPage.transferMoney(cardInfo, transferSum);
         }
     }
@@ -51,13 +51,12 @@ public class MoneyTransferTest {
         val replenishmentPage = dashboardPage.secondButton();
         val cardInfo = DataHelper.getFirstCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
-        int balanceAfterOnCardFrom = DataHelper.balanceFrom(balanceSecondBefore, amount);
-        int balanceAfterOnCardTo = DataHelper.balanceTo(balanceFirstBefore, amount);
+        int balanceAfterFrom = DataHelper.balanceFrom(balanceSecondBefore, amount);
+        int balanceAfterTo = DataHelper.balanceTo(balanceFirstBefore, amount);
         int balanceFirstAfter = dashboardPage.getCardBalance(0);
         int balanceSecondAfter = dashboardPage.getCardBalance(1);
-        assertEquals(balanceFirstAfter, balanceAfterOnCardFrom);
-        assertEquals(balanceSecondAfter, balanceAfterOnCardTo );
-
+        assertEquals( balanceFirstAfter,balanceAfterFrom);
+        assertEquals(balanceSecondAfter, balanceAfterTo );
 
 
     }
@@ -71,12 +70,12 @@ public class MoneyTransferTest {
         val replenishmentPage = dashboardPage.firstButton();
         val cardInfo = DataHelper.getSecondCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
-        int balanceAfterOnCardFrom = DataHelper.balanceFrom(balanceFirstBefore, amount);
-        int balanceAfterOnCardTo = DataHelper.balanceTo(balanceSecondBefore, amount);
+        int balanceAfterFrom = DataHelper.balanceFrom(balanceFirstBefore, amount);
+        int balanceAfterTo = DataHelper.balanceTo(balanceSecondBefore, amount);
         int balanceFirstAfter = dashboardPage.getCardBalance(0);
         int balanceSecondAfter = dashboardPage.getCardBalance(1);
-        assertEquals(balanceFirstAfter, balanceAfterOnCardTo);
-        assertEquals(balanceSecondAfter, balanceAfterOnCardFrom);
+        assertEquals(balanceFirstAfter, balanceAfterTo);
+        assertEquals(balanceSecondAfter, balanceAfterFrom);
     }
 
 
