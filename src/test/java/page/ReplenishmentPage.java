@@ -17,9 +17,9 @@ public class ReplenishmentPage {
 
     public void transferMoney(DataHelper.CardInfo fromCardInfo, int amountToTransfer) {
         String amount = Integer.toString(amountToTransfer);
-        amountField.sendKeys(Keys.DELETE);
+        amountField.sendKeys(Keys.CONTROL,"a",Keys.DELETE);
         amountField.setValue(amount);
-        fromField.sendKeys(Keys.chord(Keys.DELETE));
+        fromField.sendKeys(Keys.chord(Keys.CONTROL,"a",Keys.DELETE));
         fromField.setValue(fromCardInfo.getCardNumber());
         transferButton.click();
 
