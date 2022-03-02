@@ -85,6 +85,7 @@ public class MoneyTransferTest {
         val cardInfo = DataHelper.getFirstCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
         val error = new DashboardPage();
+        error.notificationVisible();
 
     }
     @Test
@@ -96,6 +97,8 @@ public class MoneyTransferTest {
         val cardInfo = DataHelper.getSecondCardInfo();
         replenishmentPage.transferMoney(cardInfo, amount);
         val error = new DashboardPage();
+        error.notificationVisible();
+
 
     }
 
